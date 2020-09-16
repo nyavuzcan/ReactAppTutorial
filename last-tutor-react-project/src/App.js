@@ -2,9 +2,7 @@ import React from 'react';
 import User from './components/User'
 import UserList from './components/UserList';
 import AddUser from './components/AddUser';
-function ConsoleLog(data){
-  console.log('from App Module');
-}
+
 
 class App extends React.Component {
   state = {
@@ -14,6 +12,19 @@ class App extends React.Component {
       {name:"ahmet", status:"online", id:2},
       {name:"veli", status:"busy",id:3}
     ]
+  }
+  statusChangeHandler = (data) =>
+  {
+   let tUsers = this.state.users.map(us => {
+      if(us.id === data.userId){
+        us.status = data.status;
+      }
+      return us;
+      
+   }) 
+   this.setState({
+     users:tUsers
+   })
   }
 
   addMethod = (name) => {
@@ -34,7 +45,7 @@ class App extends React.Component {
   }
   removeMethod = (id) => {
    let tUser = this.state.users.filter(user =>{
-     console.log(id);
+
      return user.id !== id;
    })
    this.setState({
@@ -50,7 +61,7 @@ class App extends React.Component {
       
       <div className="col-4">
       <AddUser addMethod={this.addMethod}/>
-      <UserList  users = {this.state.users} removeMethod = {this.removeMethod}/>
+      <UserList  users = {this.state.users} removeMethod = {this.removeMethod} stChangeMethod={this.statusChangeHandler}/>
       </div>
     </div>
         

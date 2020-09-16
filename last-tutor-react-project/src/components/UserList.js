@@ -1,13 +1,15 @@
 import React from 'react'
 import User from './User'
-const UserList = ({users,removeMethod}) => {
+const UserList = ({users,removeMethod,stChangeMethod}) => {
     if(users.length>0){
 
    
     return(
         users.map(user => {
-            return <User name= {user.name} status = {user.status}  
-            key = {user.id} removeMethod={()=> removeMethod(user.id)}/>
+            return <User name= {user.name} status = {user.status} id={user.id}  
+            key = {user.id} removeMethod={()=> removeMethod(user.id)} stChangeMethod={stChangeMethod}/>
+            //BUNUN YERİNE KOMPLE USER I PROP OLARAK GÖNDEREBİLİRİZ 
+            //<User user={user}
         })
         
     ) }
