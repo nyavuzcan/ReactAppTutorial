@@ -2,17 +2,10 @@ import React from 'react';
 import User from './components/User'
 import UserList from './components/UserList';
 import AddUser from './components/AddUser';
-
+import {connect} from 'react-redux';
 
 class App extends React.Component {
-  state = {
-    idx :4,
-    users: [
-      {name:"nevzat", status:"offline", id:1},
-      {name:"ahmet", status:"online", id:2},
-      {name:"veli", status:"busy",id:3}
-    ]
-  }
+
   statusChangeHandler = (data) =>
   {
    let tUsers = this.state.users.map(us => {
@@ -27,50 +20,29 @@ class App extends React.Component {
    })
   }
 
-  addMethod = (name) => {
-      //[...arrayadi,nesne]
-      let id = this.state.idx +1;
-      let user = {
-        name:name,
-        status:'online',
-        id:id
-      }
-      let tUsers = [...this.state.users, user]
 
-      this.setState({
-        users:tUsers,
-        idx : id
-      })
-
-  }
-  removeMethod = (id) => {
-   let tUser = this.state.users.filter(user =>{
-
-     return user.id !== id;
-   })
-   this.setState({
-     users:tUser
-   })
-}
   render(){
+    const {users} = this.props;
   return (
+  
     <div className="container-fluid">  
     
         <hr/> 
     <div className="row">
       
       <div className="col-4">
-      <AddUser addMethod={this.addMethod}/>
-      <UserList  users = {this.state.users} removeMethod = {this.removeMethod} stChangeMethod={this.statusChangeHandler}/>
+      <AddUser/>
+      <UserList  users = {users} removeMethod = {this.removeMethod} stChangeMethod={this.statusChangeHandler}/>
       </div>
     </div>
-        
-        
-        
-
-
         </div>
   );
 }
+
 }
-export default App;
+const mapStateToProps = (state) =>{ 
+  return {
+    users : state.users
+  };
+}
+export default connect(mapStateToProps) (App);
