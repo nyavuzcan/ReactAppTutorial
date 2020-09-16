@@ -6,6 +6,15 @@
         name:""
     }
 
+    componentDidMount(){
+        console.log('AddUser bileşeni Eklendi')
+    }
+
+    componentDidUpdate(prevProps,prevState){
+        console.log('Add user Güncellendi', prevState, this.state)
+    }
+
+
     changeHandler = (e) => {
         this.setState({
             name : e.target.value

@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 
 
- const User = ({name,status, removeMethod,id,stChangeMethod}) => {
-   const changeHandler = (e) => {
-            stChangeMethod({status : e.target.value, userId : id})
-     }
+ class User extends Component{
+
+componentWillUnmount(){
+  console.log('Bileşen Dom Cıkarıldı',this.props.id)
+  
+}
+  
+     render(){
+      const {name,status, removeMethod,id,stChangeMethod} =this.props
+      const changeHandler = (e) => {
+        stChangeMethod({status : e.target.value, userId : id})
+ }
     return(
         <div className="card bg-light mb-3">
        <div  className="card-body">
@@ -20,6 +28,7 @@ import React, { Component } from 'react'
        </div>
             </div >
     )
+  }
 }
 
 export default User;
